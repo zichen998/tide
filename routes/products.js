@@ -54,22 +54,22 @@ router.addProduct = (req, res) => {
     var product = new products();
 
     product.paymenttype = req.body.paymenttype;// the requested value
-        product.amount = req.body.amount;
+    product.amount = req.body.amount;
     product.color = req.body.color;
     product.name = req.body.name;
 
-            product.save(function(err) {
-                if (err)
-                    res.json({ message: 'product NOT Added!', errmsg : err } );// return a suitable error message
-                else
-                    res.json({ message: 'product Successfully Added!', data: product });// return a suitable success message
-            });
+    product.save(function(err) {
+        if (err)
+            res.json({ message: 'product NOT Added!', errmsg : err } );// return a suitable error message
+        else
+            res.json({ message: 'product Successfully Added!', data: product });// return a suitable success message
+    });
 }
 
 
 router.incrementUpvotes = (req, res) => {
 
-    products.findById(req.params.id, function(err,product) {
+    products.findById({ "_id" : req.params.id }, function(err, product) {
         if (err)
             res.json({ message: 'product NOT Found!', errmsg : err } );
         else {
